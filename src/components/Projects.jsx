@@ -70,6 +70,22 @@ function Projects() {
       details: "Conducted in-depth analysis on employee pay, performance, and educational background using Python, Excel, and VBA, uncovering significant disparities that informed DEI strategy and helped improve workforce planning and equity-based decision-making."
     },
     {
+      title: "Spotify Data Analysis",
+      description: "Uncovering patterns, insights, and surprises in my own Spotify listening data—because data never lies, but my playlists might! Extracted personal Spotify data using API, processed with Pandas, and created visualizations to identify peak listening hours and artist preferences.",
+      tech: ["Python", "Pandas", "Matplotlib", "Seaborn", "Spotify API", "Data Visualization"],
+      metrics: "Personal Data Analysis",
+      category: "Data Engineering/Analytics",
+      details: "Analyzed personal Spotify listening history to uncover trends in music consumption patterns, identified peak listening times, and explored artist preferences through data visualization and statistical analysis."
+    },
+    {
+      title: "Crime Data Analysis",
+      description: "Predictive analysis of crime patterns in New York and Chicago using supervised learning models to analyze correlations between crime rates and geographical, temporal, and legal factors.",
+      tech: ["Python", "Random Forest", "XGBoost", "ARIMA", "Pandas", "Machine Learning"],
+      metrics: "Predictive Analytics",
+      category: "Data Engineering/Analytics",
+      details: "Applied regression models, Random Forest, and XGBoost to capture complex relationships between crime indicators. Used ARIMA for time series analysis to predict crime patterns and inform public safety policy making."
+    },
+    {
       title: "Personal Portfolio Website",
       description: "Designed and developed a modern, responsive portfolio website showcasing projects, skills, and professional experience with smooth animations and intuitive navigation.",
       tech: ["React", "Vite", "Tailwind CSS", "JavaScript", "Lucide Icons"],
@@ -147,16 +163,29 @@ function Projects() {
                     ) : project.title === "RedShield (WIP)" ? (
                       <div className="flex gap-3"></div>
                     ) : project.title === "Cloud-Powered ETL & Analytics Pipeline" ? (
-                      <>
-                        <a href="#" className="text-gray-700 hover:text-gray-900 flex items-center gap-1 text-sm font-semibold transition-colors">
-                          <Github size={16} /> Code
-                        </a>
-                        <a href="https://www.linkedin.com/posts/prathambusa15_cloudjobs-dataengineering-awscloud-activity-7293328055559757827-Pjym?utm_source=share&utm_medium=member_desktop&rcm=ACoAAC9he3sBZCwHajCUGiOXRZWnUMXCbVvmOQs" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 flex items-center gap-1 text-sm font-semibold transition-colors">
-                          <ExternalLink size={16} /> LinkedIn
-                        </a>
-                      </>
+                      <a href="https://www.linkedin.com/posts/prathambusa15_cloudjobs-dataengineering-awscloud-activity-7293328055559757827-Pjym?utm_source=share&utm_medium=member_desktop&rcm=ACoAAC9he3sBZCwHajCUGiOXRZWnUMXCbVvmOQs" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 flex items-center gap-1 text-sm font-semibold transition-colors">
+                        <ExternalLink size={16} /> LinkedIn
+                      </a>
                     ) : project.title === "Fake News Detection" ? (
-                      <div className="flex gap-3"></div>
+                      <a href="https://github.com/prathambusa/FakeNewsDetection" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 flex items-center gap-1 text-sm font-semibold transition-colors">
+                        <Github size={16} /> Code
+                      </a>
+                    ) : project.title === "HR Analytics Dashboard" ? (
+                      <a href="https://public.tableau.com/app/profile/prathambusa/viz/HRDashboard_17309531485660/HRSummary" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 flex items-center gap-1 text-sm font-semibold transition-colors">
+                        <ExternalLink size={16} /> Demo
+                      </a>
+                    ) : project.title === "Personal Portfolio Website" ? (
+                      <a href="https://github.com/prathambusa/Pratham-Busa-Portfolio" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 flex items-center gap-1 text-sm font-semibold transition-colors">
+                        <Github size={16} /> Code
+                      </a>
+                    ) : project.title === "Spotify Data Analysis" ? (
+                      <a href="https://github.com/prathambusa/Spotify-Data-Analysis" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 flex items-center gap-1 text-sm font-semibold transition-colors">
+                        <Github size={16} /> Code
+                      </a>
+                    ) : project.title === "Crime Data Analysis" ? (
+                      <a href="https://github.com/prathambusa/NY-and-Chicago-Crime-Data-Analysis" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 flex items-center gap-1 text-sm font-semibold transition-colors">
+                        <Github size={16} /> Code
+                      </a>
                     ) : (
                       <>
                         <a href="#" className="text-gray-700 hover:text-gray-900 flex items-center gap-1 text-sm font-semibold transition-colors">

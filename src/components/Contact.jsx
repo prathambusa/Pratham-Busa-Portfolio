@@ -213,7 +213,7 @@ function Contact() {
                       name="project"
                       value={formData.project}
                       onChange={handleChange}
-                      rows={4}
+                      rows={2}
                       className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 font-medium resize-none"
                       placeholder="I'm looking for help with..."
                       required

@@ -41,7 +41,7 @@ export const handler = async (event, context) => {
     const mailOptions = {
       from: EMAIL_USER,
       to: TO_EMAIL,
-      subject: `📬 New Contact: ${name} - Portfolio Inquiry`,
+      subject: `${name} - Portfolio Reach out Request`,
       text: `
 New Contact Form Submission
 

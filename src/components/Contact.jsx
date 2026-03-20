@@ -13,18 +13,38 @@ function Contact() {
     e.preventDefault()
     
     try {
-      // Create FormData for file upload
-      const formDataToSend = new FormData()
-      formDataToSend.append('name', formData.name)
-      formDataToSend.append('email', formData.email)
-      formDataToSend.append('project', formData.project)
+      let payload = {
+        name: formData.name,
+        email: formData.email,
+        project: formData.project
+      }
+
+      // Convert file to base64 if present
       if (formData.file) {
-        formDataToSend.append('file', formData.file)
+        const fileBase64 = await new Promise((resolve, reject) => {
+          const reader = new FileReader()
+          reader.onload = () => {
+            const result = reader.result
+            const base64Data = result.split(',')[1] // Remove data URL prefix
+            resolve({
+              name: formData.file.name,
+              type: formData.file.type,
+              size: formData.file.size,
+              data: base64Data
+            })
+          }
+          reader.onerror = reject
+          reader.readAsDataURL(formData.file)
+        })
+        payload.file = fileBase64
       }
 
       const response = await fetch('/.netlify/functions/send-email', {
         method: 'POST',
-        body: formDataToSend,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
       })
 
       const result = await response.json()

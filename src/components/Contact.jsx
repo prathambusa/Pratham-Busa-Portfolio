@@ -193,6 +193,19 @@ function Contact() {
                       required
                     />
                   </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                    <input 
+                      type="email" 
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 font-medium"
+                      placeholder="john@example.com"
+                      required
+                    />
+                  </div>
                   
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Tell me about the role, project, or anything you'd like to discuss…</label>
@@ -200,7 +213,7 @@ function Contact() {
                       name="project"
                       value={formData.project}
                       onChange={handleChange}
-                      rows={6}
+                      rows={4}
                       className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 font-medium resize-none"
                       placeholder="I'm looking for help with..."
                       required
@@ -226,32 +239,6 @@ function Contact() {
                         Selected: {formData.file.name}
                       </p>
                     )}
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-                    <input 
-                      type="email" 
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 font-medium"
-                      placeholder="john@example.com"
-                      required
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Tell me about the role, project, or anything you'd like to discuss…</label>
-                    <textarea 
-                      name="project"
-                      value={formData.project}
-                      onChange={handleChange}
-                      rows="5"
-                      className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 resize-none font-medium"
-                      placeholder="Tell me about your project, goals, and how I can help..."
-                      required
-                    ></textarea>
                   </div>
                   
                   <button 

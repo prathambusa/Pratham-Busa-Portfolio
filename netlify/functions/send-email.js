@@ -18,6 +18,8 @@ export const handler = async (event, context) => {
     // Parse JSON payload
     const { name, email, project, file } = JSON.parse(event.body);
 
+    console.log('Received data:', { name, email, project, file: file ? { name: file.name, type: file.type, size: file.size, dataLength: file.data?.length } : null });
+
     // Validate input
     if (!name || !email || !project) {
       return {
@@ -56,9 +58,19 @@ ${file ? `\nAttachment: ${file.name}` : ''}
       `,
       attachments: file ? [{
         filename: file.name,
-        content: Buffer.from(file.data, 'base64'),
+        content: (() => {
+          try {
+            console.log('Converting base64 to buffer, data length:', file.data.length);
+            const buffer = Buffer.from(file.data, 'base64');
+            console.log('Buffer created, length:', buffer.length);
+            return buffer;
+          } catch (error) {
+            console.error('Error converting base64 to buffer:', error);
+            return null;
+          }
+        })(),
         contentType: file.type
-      }] : []
+      }].filter(att => att.content !== null) : []
     };
 
     // Send email

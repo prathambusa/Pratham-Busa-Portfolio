@@ -25,7 +25,19 @@ function Contact() {
           const reader = new FileReader()
           reader.onload = () => {
             const result = reader.result
-            const base64Data = result.split(',')[1] // Remove data URL prefix
+            // Handle both data URL and raw base64
+            let base64Data;
+            if (typeof result === 'string' && result.includes(',')) {
+              base64Data = result.split(',')[1]; // Remove data URL prefix
+            } else {
+              base64Data = result; // Use as-is if already base64
+            }
+            console.log('File info:', {
+              name: formData.file.name,
+              type: formData.file.type,
+              size: formData.file.size,
+              base64Length: base64Data.length
+            });
             resolve({
               name: formData.file.name,
               type: formData.file.type,
@@ -33,7 +45,10 @@ function Contact() {
               data: base64Data
             })
           }
-          reader.onerror = reject
+          reader.onerror = (error) => {
+            console.error('FileReader error:', error);
+            reject(error);
+          }
           reader.readAsDataURL(formData.file)
         })
         payload.file = fileBase64

@@ -15,7 +15,28 @@ export const handler = async (event, context) => {
   }
 
   try {
-    const { name, email, project } = JSON.parse(event.body);
+    // Parse FormData instead of JSON
+    const formData = event.body;
+    const parts = formData.split('------');
+    
+    let name, email, project, fileData, fileName, fileType;
+    
+    for (const part of parts) {
+      if (part.includes('name="name"')) {
+        name = part.split('\r\n\r\n')[1]?.trim();
+      } else if (part.includes('name="email"')) {
+        email = part.split('\r\n\r\n')[1]?.trim();
+      } else if (part.includes('name="project"')) {
+        project = part.split('\r\n\r\n')[1]?.trim();
+      } else if (part.includes('name="file"')) {
+        const lines = part.split('\r\n');
+        const contentIndex = lines.findIndex(line => line === '') + 1;
+        const content = lines.slice(contentIndex, -2).join('\r\n');
+        fileData = Buffer.from(content, 'binary');
+        fileName = part.match(/filename="(.+)"/)?.[1] || 'attachment';
+        fileType = part.match(/Content-Type: (.+)/)?.[1] || 'application/octet-stream';
+      }
+    }
 
     // Validate input
     if (!name || !email || !project) {
@@ -43,6 +64,7 @@ export const handler = async (event, context) => {
 Name: ${name}
 Email: ${email}
 Project: ${project}
+${fileData ? `\nAttachment: ${fileName}` : ''}
       `,
       html: `
         <h3>New Contact Form Submission</h3>
@@ -50,7 +72,13 @@ Project: ${project}
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Project:</strong></p>
         <p>${project}</p>
-      `
+        ${fileData ? `<p><strong>Attachment:</strong> ${fileName}</p>` : ''}
+      `,
+      attachments: fileData ? [{
+        filename: fileName,
+        content: fileData,
+        contentType: fileType
+      }] : []
     };
 
     // Send email

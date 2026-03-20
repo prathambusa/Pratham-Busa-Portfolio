@@ -5,26 +5,36 @@ function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    project: ''
+    project: '',
+    file: null
   })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     
     try {
+      // Create FormData for file upload
+      const formDataToSend = new FormData()
+      formDataToSend.append('name', formData.name)
+      formDataToSend.append('email', formData.email)
+      formDataToSend.append('project', formData.project)
+      if (formData.file) {
+        formDataToSend.append('file', formData.file)
+      }
+
       const response = await fetch('/.netlify/functions/send-email', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: formDataToSend,
       })
 
       const result = await response.json()
 
       if (result.success) {
         alert('Thank you for your message! I\'ll get back to you soon.')
-        setFormData({ name: '', email: '', project: '' })
+        setFormData({ name: '', email: '', project: '', file: null })
+        // Clear file input
+        const fileInput = document.querySelector('input[type="file"]')
+        if (fileInput) fileInput.value = ''
       } else {
         alert('Oops! Something went wrong. Please try again.')
       }
@@ -39,6 +49,22 @@ function Contact() {
       ...formData,
       [e.target.name]: e.target.value
     })
+  }
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      // Check file size (5MB limit)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('File size must be less than 5MB')
+        e.target.value = ''
+        return
+      }
+      setFormData({
+        ...formData,
+        file: file
+      })
+    }
   }
 
   return (
@@ -166,6 +192,40 @@ function Contact() {
                       placeholder="John Doe"
                       required
                     />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">Tell me about the role, project, or anything you'd like to discuss…</label>
+                    <textarea 
+                      name="project"
+                      value={formData.project}
+                      onChange={handleChange}
+                      rows={6}
+                      className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 font-medium resize-none"
+                      placeholder="I'm looking for help with..."
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Attach File (Optional)
+                      <span className="text-xs font-normal text-gray-500 ml-2">
+                        PDF, DOC, DOCX, PNG, JPG (Max 5MB)
+                      </span>
+                    </label>
+                    <input 
+                      type="file" 
+                      name="file"
+                      onChange={handleFileChange}
+                      className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 font-medium file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
+                      accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+                    />
+                    {formData.file && (
+                      <p className="mt-2 text-sm text-gray-600">
+                        Selected: {formData.file.name}
+                      </p>
+                    )}
                   </div>
                   
                   <div>

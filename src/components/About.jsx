@@ -4,33 +4,35 @@ import { Brain, Target, GraduationCap, Calendar, MapPin, Award, Camera, Book, Ch
 function About() {
   const [showPersonalSection, setShowPersonalSection] = useState(false)
   const [selectedImage, setSelectedImage] = useState(null)
-  const scrollRef = useRef(null)
+  const theatreScrollRef = useRef(null)
+  const booksScrollRef = useRef(null)
+  const photoScrollRef = useRef(null)
+  const cookingScrollRef = useRef(null)
 
   useEffect(() => {
-    const scrollContainer = scrollRef.current
-    if (!scrollContainer) return
-
-    let scrollPosition = 0
-    const scrollSpeed = 1 // pixels per frame
-    const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth
+    const refs = [theatreScrollRef, booksScrollRef, photoScrollRef, cookingScrollRef]
+    const positions = refs.map(() => 0)
+    const scrollSpeed = 1
 
     const scroll = () => {
-      if (scrollPosition >= maxScroll) {
-        scrollPosition = 0
-      } else {
-        scrollPosition += scrollSpeed
-      }
-      scrollContainer.scrollLeft = scrollPosition
+      refs.forEach((ref, i) => {
+        const el = ref.current
+        if (!el) return
+        const halfScroll = (el.scrollWidth - el.clientWidth) / 2
+        if (halfScroll <= 0) return
+        positions[i] += scrollSpeed
+        if (positions[i] >= halfScroll) positions[i] = 0
+        el.scrollLeft = positions[i]
+      })
     }
 
-    const intervalId = setInterval(scroll, 30) // ~33fps
-
+    const intervalId = setInterval(scroll, 30)
     return () => clearInterval(intervalId)
   }, [showPersonalSection])
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <section className="py-6 flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         {/* Modern monochrome background */}
         <div className="absolute inset-0 bg-gradient-to-br from-stone-50 via-white to-stone-50"></div>
         <div className="absolute inset-0 bg-gradient-to-tr from-stone-50 via-white to-stone-50 opacity-60"></div>
@@ -43,31 +45,19 @@ function About() {
           <div className="absolute bottom-40 right-10 w-36 h-36 bg-gray-300/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '0.5s'}}></div>
         </div>
         
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight">
-              <span className="text-gray-900">About Me</span>
-            </h1>
-            <p className="text-xl sm:text-2xl text-gray-700 mb-6 max-w-3xl mx-auto font-semibold tracking-tight">
-              Building AI-Powered Solutions with Product Mindset
-            </p>
-            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto font-medium leading-relaxed">
-              I'm a passionate software developer with expertise in AI/ML applications and product strategy. 
-              With a keen eye for user experience and business impact, I specialize in building intelligent systems 
-              that solve real-world problems at scale.
-            </p>
-          </div>
-        </div>
-      </section>
+              </section>
 
       {/* About Details Section */}
-      <section className="py-20 bg-gradient-to-br from-stone-50 to-white">
+      <section className="py-48 bg-gradient-to-br from-stone-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <div className="modern-card rounded-3xl h-96 flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200"></div>
-                <Brain size={120} className="text-gray-700 relative z-10" />
+              <div className="modern-card rounded-3xl h-[28rem] flex items-center justify-center relative overflow-hidden">
+                <img 
+                  src="/images/IMG_1278.jpg" 
+                  alt="About Me"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
             <div>
@@ -189,12 +179,12 @@ function About() {
                 <h4 className="text-xl font-black mb-2 text-gray-900">AWS Certified</h4>
                 <p className="text-gray-600 font-medium">Certified Cloud Practitioner</p>
               </div>
-              <div className="modern-card p-6 rounded-2xl text-center">
-                <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div className="modern-card p-6 rounded-2xl text-center">
+                <div className="w-16 h-16 bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Award className="text-white" size={32} />
                 </div>
-                <h4 className="text-xl font-black mb-2 text-gray-900">Google Cloud</h4>
-                <p className="text-gray-600 font-medium">ML Engineer</p>
+                <h4 className="text-xl font-black mb-2 text-gray-900">Scrum Alliance</h4>
+                <p className="text-gray-600 font-medium">Certified Scrum Product Owner</p>
               </div>
             </div>
           </div>
@@ -255,7 +245,7 @@ function About() {
                 <div>
                   <h4 className="text-2xl font-black mb-4 text-gray-900">College Theatre Troupe</h4>
                   <p className="text-gray-700 leading-relaxed mb-6">
-                    During my undergraduate years, I was an active member of our college theatre team. We weren't just performing 
+                    During my undergraduate years, I was an active member of our college theatre team, <span className="font-black text-gray-900">Team Rhapsody</span>. We weren't just performing 
                     for entertainment - we were on a mission. We toured different colleges across Mumbai and India, using the powerful 
                     medium of theatre to spread important messages.
                   </p>
@@ -285,6 +275,49 @@ function About() {
                   in every product I build today.
                 </p>
               </div>
+
+              {/* Theatre Carousel */}
+              <div className="mt-8 overflow-hidden rounded-2xl">
+                <div
+                  ref={theatreScrollRef}
+                  className="overflow-x-auto"
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
+                >
+                  <div className="flex gap-3" style={{ width: 'max-content' }}>
+                    {[
+                      '/images/theatre/10712.JPG',
+                      '/images/theatre/10713.jpg',
+                      '/images/theatre/107471.jpg',
+                      '/images/theatre/3915.JPG',
+                      '/images/theatre/5241.jpg',
+                      '/images/theatre/6066.JPG',
+                      '/images/theatre/80968.JPG',
+                      '/images/theatre/80970.jpg',
+                      '/images/theatre/82752.JPG',
+                      '/images/theatre/IMG_7589.JPG',
+                      '/images/theatre/10712.JPG',
+                      '/images/theatre/10713.jpg',
+                      '/images/theatre/107471.jpg',
+                      '/images/theatre/3915.JPG',
+                      '/images/theatre/5241.jpg',
+                      '/images/theatre/6066.JPG',
+                      '/images/theatre/80968.JPG',
+                      '/images/theatre/80970.jpg',
+                      '/images/theatre/82752.JPG',
+                      '/images/theatre/IMG_7589.JPG',
+                    ].map((src, i) => (
+                      <div key={`theatre-${i}`} className="relative group cursor-pointer flex-shrink-0" style={{ width: 'calc((100vw - 10rem) / 10)' }}>
+                        <div className="w-full aspect-square bg-gray-200 rounded-lg overflow-hidden">
+                          <img src={src} alt="" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                          <p className="text-white text-xs font-medium">View</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Books Section */}
@@ -303,13 +336,10 @@ function About() {
                 <div>
                   <h4 className="text-2xl font-black mb-4 text-gray-900">My Reading Journey</h4>
                   <p className="text-gray-700 leading-relaxed mb-6">
-                    Books have been my constant companions since childhood. From the moment I discovered the magic of words, 
-                    I knew reading would be a lifelong passion. Each book opened new worlds, introduced me to different perspectives, 
-                    and shaped how I understand the world around me.
+                    Books have been my constant companions since childhood. From the moment I discovered the magic of words, I knew reading would be a lifelong passion. Each book opened new worlds, introduced me to different perspectives, and shaped how I understand the world around me. The <span className="font-black text-gray-900">Harry Potter</span> series, in particular, holds a special place in my heart - it taught me about friendship, courage, and the power of love in the face of darkness.
                   </p>
                   <p className="text-gray-700 leading-relaxed">
-                    Literature taught me empathy, philosophy taught me critical thinking, and technical books expanded my mind. 
-                    Every page turned was an investment in my intellectual and emotional growth.
+                    If you feel an uncontrollable urge to reach out… don't worry about it. Totally normal. Definitely not the Imperius Curse.
                   </p>
                 </div>
                 
@@ -318,19 +348,15 @@ function About() {
                   <div className="space-y-3 mb-6">
                     <div className="flex items-center gap-3">
                       <div className="w-3 h-3 bg-gray-600 rounded-full"></div>
-                      <span className="text-gray-700 font-medium">Classic Literature</span>
+                      <span className="text-gray-700 font-medium">Psychological Thrillers</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-3 h-3 bg-gray-600 rounded-full"></div>
-                      <span className="text-gray-700 font-medium">Philosophy & Psychology</span>
+                      <span className="text-gray-700 font-medium">Science Fiction</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-3 h-3 bg-gray-600 rounded-full"></div>
-                      <span className="text-gray-700 font-medium">Technology & AI</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 bg-gray-600 rounded-full"></div>
-                      <span className="text-gray-700 font-medium">Biographies & Memoirs</span>
+                      <span className="text-gray-700 font-medium">Self Help</span>
                     </div>
                   </div>
                   <div className="bg-gray-100 p-6 rounded-2xl">
@@ -338,6 +364,41 @@ function About() {
                       "Reading expands my mind and fuels my creativity. Every book is a conversation with someone who might have lived centuries ago, 
                       yet speaks directly to my present moment."
                     </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Books Carousel */}
+              <div className="mt-8 overflow-hidden rounded-2xl">
+                <div
+                  ref={booksScrollRef}
+                  className="overflow-x-auto"
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
+                >
+                  <div className="flex gap-3" style={{ width: 'max-content' }}>
+                    {[
+                      '/images/books/61848.JPG',
+                      '/images/books/87549.JPG',
+                      '/images/books/IMG_3728.JPG',
+                      '/images/books/IMG_5249.JPG',
+                      '/images/books/IMG_7390.JPG',
+                      '/images/books/cpm35 2025-09-17 182931.351.JPG',
+                      '/images/books/61848.JPG',
+                      '/images/books/87549.JPG',
+                      '/images/books/IMG_3728.JPG',
+                      '/images/books/IMG_5249.JPG',
+                      '/images/books/IMG_7390.JPG',
+                      '/images/books/cpm35 2025-09-17 182931.351.JPG',
+                    ].map((src, i) => (
+                      <div key={`book-${i}`} className="relative group cursor-pointer flex-shrink-0" style={{ width: 'calc((100vw - 10rem) / 10)' }}>
+                        <div className="w-full aspect-square bg-gray-200 rounded-lg overflow-hidden">
+                          <img src={src} alt="" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                          <p className="text-white text-xs font-medium">View</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -359,13 +420,10 @@ function About() {
                 <div>
                   <h4 className="text-2xl font-black mb-4 text-gray-900">The Art of Seeing</h4>
                   <p className="text-gray-700 leading-relaxed mb-6">
-                    Photography taught me to see the world differently. Suddenly, ordinary moments became extraordinary, 
-                    shadows told stories, and light became paint. My camera became an extension of my eyes, 
-                    capturing emotions that words could never express.
+                    From the chaotic, colorful streets of Mumbai to the dreamy, ever-changing skies of Seattle, my camera has followed me through two completely different worlds. In India, everything moves fast. There's energy everywhere. In Seattle, I found myself constantly looking up. The skies here have a way of stealing the show, whether it's soft sunsets, dramatic clouds, or that rare, perfect blue.
                   </p>
-                  <p className="text-gray-700 leading-relaxed">
-                    From street photography in Mumbai's bustling lanes to quiet landscapes, each frame is a piece of time preserved forever. 
-                    It's not just about taking pictures - it's about telling visual stories that resonate with the human experience.
+                  <p className="text-gray-700 leading-relaxed mb-6">
+                    I won't call myself a professional photographer… but I have, very confidently, single handedly upgraded my friends' Instagram game. At this point, I'm basically their unpaid creative director.
                   </p>
                 </div>
                 
@@ -391,9 +449,71 @@ function About() {
                   </div>
                   <div className="bg-gray-100 p-6 rounded-2xl">
                     <p className="text-gray-700 leading-relaxed">
-                      "Every picture tells a story and preserves the beauty of everyday life. Through my lens, I capture not just images, 
-                      but emotions, memories, and moments that might otherwise fade away."
+                      "For me, photography isn't about perfect shots. It's about capturing moments that feel real, slightly imperfect, and worth coming back to."
                     </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Photography Carousel */}
+              <div className="mt-8 overflow-hidden rounded-2xl">
+                <div
+                  ref={photoScrollRef}
+                  className="overflow-x-auto"
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
+                >
+                  <div className="flex gap-3" style={{ width: 'max-content' }}>
+                    {[
+                      '/images/photos/0A38C08C-B298-491F-92EB-84EA944E8329.PNG',
+                      '/images/photos/111478.JPG',
+                      '/images/photos/AD0939C7-10AF-4B52-990E-31A278610FEB.PNG',
+                      '/images/photos/IMG_2079.jpg',
+                      '/images/photos/IMG_3722.JPG',
+                      '/images/photos/IMG_4077.JPG',
+                      '/images/photos/IMG_4491.JPG',
+                      '/images/photos/IMG_4917.JPG',
+                      '/images/photos/IMG_7491.JPG',
+                      '/images/photos/cpm35 2025-06-09 172622.376.JPG',
+                      '/images/photos/cpm35 2025-06-09 200149.763.JPG',
+                      '/images/photos/cpm35 2025-06-11 213031.220.JPG',
+                      '/images/photos/cpm35 2025-06-13 174547.242.JPG',
+                      '/images/photos/cpm35 2025-07-04 222207.346.JPG',
+                      '/images/photos/cpm35 2025-08-09 162327.979.JPG',
+                      '/images/photos/cpm35 2025-08-11 121236.628.JPG',
+                      '/images/photos/cpm35 2025-08-24 120530.519.JPG',
+                      '/images/photos/cpm35 2025-09-17 183940.691.JPG',
+                      '/images/photos/cpm35 2025-09-17 184015.676.JPG',
+                      '/images/photos/cpm35 2025-10-09 010337.123.jpg',
+                      '/images/photos/0A38C08C-B298-491F-92EB-84EA944E8329.PNG',
+                      '/images/photos/111478.JPG',
+                      '/images/photos/AD0939C7-10AF-4B52-990E-31A278610FEB.PNG',
+                      '/images/photos/IMG_2079.jpg',
+                      '/images/photos/IMG_3722.JPG',
+                      '/images/photos/IMG_4077.JPG',
+                      '/images/photos/IMG_4491.JPG',
+                      '/images/photos/IMG_4917.JPG',
+                      '/images/photos/IMG_7491.JPG',
+                      '/images/photos/cpm35 2025-06-09 172622.376.JPG',
+                      '/images/photos/cpm35 2025-06-09 200149.763.JPG',
+                      '/images/photos/cpm35 2025-06-11 213031.220.JPG',
+                      '/images/photos/cpm35 2025-06-13 174547.242.JPG',
+                      '/images/photos/cpm35 2025-07-04 222207.346.JPG',
+                      '/images/photos/cpm35 2025-08-09 162327.979.JPG',
+                      '/images/photos/cpm35 2025-08-11 121236.628.JPG',
+                      '/images/photos/cpm35 2025-08-24 120530.519.JPG',
+                      '/images/photos/cpm35 2025-09-17 183940.691.JPG',
+                      '/images/photos/cpm35 2025-09-17 184015.676.JPG',
+                      '/images/photos/cpm35 2025-10-09 010337.123.jpg',
+                    ].map((src, i) => (
+                      <div key={`photo-${i}`} className="relative group cursor-pointer flex-shrink-0" style={{ width: 'calc((100vw - 10rem) / 10)' }}>
+                        <div className="w-full aspect-square bg-gray-200 rounded-lg overflow-hidden">
+                          <img src={src} alt="" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                          <p className="text-white text-xs font-medium">View</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -415,14 +535,13 @@ function About() {
                 <div>
                   <h4 className="text-2xl font-black mb-4 text-gray-900">Culinary Adventures</h4>
                   <p className="text-gray-700 leading-relaxed mb-6">
-                    Cooking found me when I was looking for a way to express care. There's something magical about transforming 
-                    raw ingredients into something that brings joy to others. The kitchen became my laboratory, my studio, 
-                    and my sanctuary all in one.
+                    My cooking journey started pretty randomly. Right after high school, my friends and I got bored of playing badminton and cricket every day, so we signed up for cooking classes. Somehow, that stuck. Back home in India, I started cooking to help my mom out… but ended up getting more compliments than she did. That's still a running joke.
+                  </p>
+                  <p className="text-gray-700 leading-relaxed mb-6">
+                    Over time, the kitchen became my escape. Part experiment lab, part creative studio. I've always enjoyed recreating flavors from home while exploring new ones that I found here.
                   </p>
                   <p className="text-gray-700 leading-relaxed">
-                    From experimenting with traditional Indian recipes to exploring international cuisines, each dish is an adventure. 
-                    The sizzle of spices, the aroma of fresh herbs, the satisfaction of a perfectly balanced flavor - 
-                    these are the moments that make cooking so rewarding.
+                    As an international student, days can get hectic, but cooking for my roommates was always the reset. Feeding 4–5 people, sharing meals, and seeing their reactions made it all worth it. At this point, if it works, it's skill. If it doesn't, it's "iteration."
                   </p>
                 </div>
                 
@@ -435,96 +554,66 @@ function About() {
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-3 h-3 bg-gray-600 rounded-full"></div>
-                      <span className="text-gray-700 font-medium">Italian Pasta & Pizza</span>
+                      <span className="text-gray-700 font-medium">Pastas & Risottos</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-3 h-3 bg-gray-600 rounded-full"></div>
+                      <span className="text-gray-700 font-medium">Ramen & Dumplings</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-3 h-3 bg-gray-600 rounded-full"></div>
                       <span className="text-gray-700 font-medium">Baking & Desserts</span>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 bg-gray-600 rounded-full"></div>
-                      <span className="text-gray-700 font-medium">Fusion Experiments</span>
-                    </div>
                   </div>
                   <div className="bg-gray-100 p-6 rounded-2xl">
                     <p className="text-gray-700 leading-relaxed">
-                      "There's something magical about cooking for loved ones. It's my way of showing care and bringing people together. 
-                      Every meal is an opportunity to create memories around the dining table."
+                      "Cooking, in a weird way, feels a lot like product management to me. There's always a lot going on. You're prepping, multitasking, managing dependencies, making sure nothing breaks or burns. Sometimes I've even "led" the kitchen with friends, delegating tasks based on strengths, all of us working together to bring one dish to life."
                     </p>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Photo Gallery - Outside Card */}
-            <div className="modern-card p-12 rounded-3xl">
-              <div className="text-center mb-12">
-                <h3 className="text-3xl font-black mb-4 text-gray-900">Captured Moments</h3>
-                <p className="text-gray-600 font-medium">A visual journey through my lens</p>
-              </div>
-              
-              <div className="relative">
-                {/* Automatic horizontal scroll container */}
-                <div 
-                  ref={scrollRef}
-                  className="overflow-x-auto pb-4 scrollbar-hide"
-                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              {/* Cooking Carousel */}
+              <div className="mt-8 overflow-hidden rounded-2xl">
+                <div
+                  ref={cookingScrollRef}
+                  className="overflow-x-auto"
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
                 >
-                  <div className="flex gap-4 min-w-max">
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-                      <div 
-                        key={num}
-                        className="relative group cursor-pointer flex-shrink-0"
-                        onClick={() => setSelectedImage(num)}
-                      >
-                        <div className="w-64 h-48 bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center">
-                          <Camera className="text-gray-400" size={48} />
-                          <span className="absolute bottom-2 left-2 text-xs text-gray-600 font-medium">
-                            Memory {num}
-                          </span>
+                  <div className="flex gap-3" style={{ width: 'max-content' }}>
+                    {[
+                      '/images/food/48587.JPG',
+                      '/images/food/50413.JPG',
+                      '/images/food/7705.JPG',
+                      '/images/food/7972.JPG',
+                      '/images/food/IMG_2145.JPG',
+                      '/images/food/IMG_6848.JPG',
+                      '/images/food/IMG_7383.JPG',
+                      '/images/food/IMG_7446.JPG',
+                      '/images/food/48587.JPG',
+                      '/images/food/50413.JPG',
+                      '/images/food/7705.JPG',
+                      '/images/food/7972.JPG',
+                      '/images/food/IMG_2145.JPG',
+                      '/images/food/IMG_6848.JPG',
+                      '/images/food/IMG_7383.JPG',
+                      '/images/food/IMG_7446.JPG',
+                    ].map((src, i) => (
+                      <div key={`cooking-${i}`} className="relative group cursor-pointer flex-shrink-0" style={{ width: 'calc((100vw - 10rem) / 10)' }}>
+                        <div className="w-full aspect-square bg-gray-200 rounded-lg overflow-hidden">
+                          <img src={src} alt="" className="w-full h-full object-cover" />
                         </div>
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
-                          <p className="text-white text-sm font-medium">Click to view</p>
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                          <p className="text-white text-xs font-medium">View</p>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
-                
-                {/* Auto-scroll indicator */}
-                <div className="absolute top-0 right-0 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg">
-                  <p className="text-sm text-gray-600 font-medium">⟳ Auto-scrolling</p>
-                </div>
               </div>
             </div>
           </div>
         </section>
-      )}
-
-      {/* Image Modal */}
-      {selectedImage && (
-        <div 
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedImage(null)}
-        >
-          <div className="relative max-w-4xl max-h-full">
-            <button 
-              className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
-              onClick={() => setSelectedImage(null)}
-            >
-              <X size={32} />
-            </button>
-            <div className="bg-gray-200 rounded-lg overflow-hidden w-full h-96 flex items-center justify-center">
-              <Camera className="text-gray-400" size={64} />
-              <span className="absolute bottom-4 left-4 text-lg text-gray-600 font-medium">
-                Memory {selectedImage}
-              </span>
-            </div>
-            <p className="text-white text-center mt-4 font-medium">
-              Click anywhere to close
-            </p>
-          </div>
-        </div>
       )}
     </div>
   )

@@ -31,8 +31,8 @@ function Home() {
       {/* Hero Section */}
       <section className="h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         {/* Modern monochrome background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-white to-stone-50"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-stone-50 via-white to-amber-50 opacity-60"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-stone-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-stone-50 via-white to-white opacity-60"></div>
         
         {/* Floating geometric shapes */}
         <div className="absolute inset-0 overflow-hidden">

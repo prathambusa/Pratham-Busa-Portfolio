@@ -8,12 +8,30 @@ function Contact() {
     project: ''
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    // Handle form submission here
-    alert('Thank you for your message! I\'ll get back to you soon.')
-    setFormData({ name: '', email: '', project: '' })
+    
+    try {
+      const response = await fetch('/.netlify/functions/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        alert('Thank you for your message! I\'ll get back to you soon.')
+        setFormData({ name: '', email: '', project: '' })
+      } else {
+        alert('Oops! Something went wrong. Please try again.')
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      alert('Oops! Something went wrong. Please try again.')
+    }
   }
 
   const handleChange = (e) => {
@@ -144,7 +162,7 @@ function Contact() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-gray-500 outline-none transition-all duration-300 font-medium"
+                      className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 font-medium"
                       placeholder="John Doe"
                       required
                     />
@@ -157,7 +175,7 @@ function Contact() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-gray-500 outline-none transition-all duration-300 font-medium"
+                      className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 font-medium"
                       placeholder="john@example.com"
                       required
                     />
@@ -170,7 +188,7 @@ function Contact() {
                       value={formData.project}
                       onChange={handleChange}
                       rows="5"
-                      className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-gray-500 outline-none transition-all duration-300 resize-none font-medium"
+                      className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 resize-none font-medium"
                       placeholder="Tell me about your project, goals, and how I can help..."
                       required
                     ></textarea>
@@ -190,7 +208,7 @@ function Contact() {
       </section>
 
       {/* Back to Home */}
-      <section className="py-12 bg-gradient-to-br from-amber-50 to-stone-50">
+      <section className="py-12 bg-gradient-to-br from-stone-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <a 
             href="/" 

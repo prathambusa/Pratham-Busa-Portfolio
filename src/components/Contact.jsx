@@ -176,7 +176,7 @@ function Contact() {
                     </div>
                   </div>
                   <p className="text-center text-gray-700 font-medium text-lg">
-                    Tell me about your project and how I can help bring your vision to life.
+                    Tell me about your project.
                   </p>
                 </div>
                 

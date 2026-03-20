@@ -50,7 +50,7 @@ function Home() {
             <p className="text-xl sm:text-2xl text-gray-700 mb-6 max-w-3xl mx-auto font-semibold tracking-tight typing-animation" style={{minHeight: '2.5rem'}}>
               {displayText}
             </p>
-            <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto font-medium leading-relaxed">
+            <p className="text-lg text-gray-600 mb-12 max-w-3xl mx-auto font-medium leading-tight">
               Building intelligent solutions at the intersection of AI and product innovation. 
               Passionate about creating impactful software that drives business value and user delight.
             </p>

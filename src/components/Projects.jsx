@@ -109,14 +109,14 @@ function Projects() {
   return (
     <div className="min-h-screen">
       {/* Categories Section */}
-      <section className="py-32 bg-white">
+      <section className="py-20 sm:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
             {['All Projects', 'Product', 'AI/Machine Learning', 'Data Engineering/Analytics', 'Web Development'].map((filter) => (
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-6 py-3 rounded-xl transition-all duration-300 font-semibold ${
+                className={`px-3 sm:px-4 md:px-6 py-2 sm:py-3 rounded-xl transition-all duration-300 font-semibold text-xs sm:text-sm md:text-base ${
                   activeFilter === filter
                     ? 'bg-gray-800 text-white hover:bg-gray-700'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -130,9 +130,9 @@ function Projects() {
       </section>
 
       {/* Projects Grid */}
-      <section className="py-20 bg-white">
+      <section className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {projects.filter(project => activeFilter === 'All Projects' || (Array.isArray(project.category) ? project.category.includes(activeFilter) : project.category === activeFilter)).map((project, index) => (
               <div key={index} className="modern-card rounded-2xl overflow-hidden hover:scale-105 transition-all duration-300 group">
                 <div className="h-48 bg-gray-800 flex items-center justify-center relative overflow-hidden">
@@ -147,17 +147,17 @@ function Projects() {
                     <Brain size={64} className="text-white relative z-10 group-hover:scale-110 transition-transform duration-300" />
                   )}
                 </div>
-                <div className="p-6">
-                  <div className="mb-3">
+                <div className="p-4 sm:p-6">
+                  <div className="mb-2 sm:mb-3">
                     <div className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">
                       {project.metrics}
                     </div>
                   </div>
-                  <h3 className="text-xl font-black mb-3 text-gray-900">{project.title}</h3>
-                  <p className="text-gray-700 mb-4 text-sm leading-relaxed">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <h3 className="text-lg sm:text-xl font-black mb-2 sm:mb-3 text-gray-900">{project.title}</h3>
+                  <p className="text-gray-700 mb-3 sm:mb-4 text-xs sm:text-sm leading-relaxed line-clamp-3">{project.description}</p>
+                  <div className="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
                     {project.tech.slice(0, 3).map((tech, i) => (
-                      <span key={i} className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">
+                      <span key={i} className="px-1.5 sm:px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">
                         {tech}
                       </span>
                     ))}

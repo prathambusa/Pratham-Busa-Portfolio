@@ -105,26 +105,26 @@ function Contact() {
   return (
     <div className="min-h-screen">
       {/* Contact Section - Primary View */}
-      <section className="pt-32 pb-20 bg-white">
+      <section className="pt-24 sm:pt-32 pb-16 sm:pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <p className="text-xl sm:text-2xl text-gray-700 mb-6 max-w-3xl mx-auto font-semibold tracking-tight">
+          <div className="text-center mb-12 sm:mb-16">
+            <p className="text-xl sm:text-2xl text-gray-700 mb-6 max-w-3xl mx-auto font-semibold tracking-tight px-4">
               Ready to Build Something Amazing Together
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-16">
+          <div className="grid md:grid-cols-2 gap-8 sm:gap-16">
             {/* Contact Info - Left Side */}
             <div className="flex flex-col h-full">
-              <div className="modern-card rounded-3xl p-8 flex-1">
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Mail className="text-white" size={24} />
+              <div className="modern-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex-1">
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-800 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Mail className="text-white" size={20} />
                     </div>
                     <div>
-                      <h3 className="text-xl font-black mb-2 text-gray-900">Email</h3>
-                      <p className="text-gray-700 font-medium">busapratham@gmail.com</p>
+                      <h3 className="text-lg sm:text-xl font-black mb-1 sm:mb-2 text-gray-900">Email</h3>
+                      <p className="text-gray-700 font-medium text-sm sm:text-base">busapratham@gmail.com</p>
                     </div>
                   </div>
 
@@ -197,25 +197,25 @@ function Contact() {
 
             {/* Contact Form - Right Side */}
             <div className="flex flex-col h-full">
-              <div className="modern-card rounded-3xl p-8 flex-1">
-                <div className="mb-8">
-                  <div className="flex items-center justify-center gap-4 mb-6">
-                    <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center">
-                      <Brain className="text-white" size={24} />
+              <div className="modern-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex-1">
+                <div className="mb-6 sm:mb-8">
+                  <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-800 rounded-full flex items-center justify-center">
+                      <Brain className="text-white" size={20} />
                     </div>
-                    <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
-                      <Target className="text-gray-700" size={24} />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                      <Target className="text-gray-700" size={20} />
                     </div>
-                    <div className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
-                      <Lightbulb className="text-gray-700" size={24} />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                      <Lightbulb className="text-gray-700" size={20} />
                     </div>
                   </div>
-                  <p className="text-center text-gray-700 font-medium text-lg">
+                  <p className="text-center text-gray-700 font-medium text-base sm:text-lg px-4">
                     Tell me about your Project
                   </p>
                 </div>
                 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Your Name</label>
                     <input 
@@ -223,7 +223,7 @@ function Contact() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 font-medium"
+                      className="w-full px-3 sm:px-4 py-3 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 font-medium text-sm sm:text-base"
                       placeholder="John Doe"
                       required
                     />
@@ -236,7 +236,7 @@ function Contact() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 font-medium"
+                      className="w-full px-3 sm:px-4 py-3 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 font-medium text-sm sm:text-base"
                       placeholder="john@example.com"
                       required
                     />
@@ -248,8 +248,8 @@ function Contact() {
                       name="project"
                       value={formData.project}
                       onChange={handleChange}
-                      rows={2}
-                      className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 font-medium resize-none"
+                      rows={3}
+                      className="w-full px-3 sm:px-4 py-3 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-800 focus:border-gray-800 outline-none transition-all duration-300 font-medium resize-none text-sm sm:text-base"
                       placeholder="I'm looking for help with..."
                       required
                     />

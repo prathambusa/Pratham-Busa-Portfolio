@@ -39,20 +39,26 @@ function About() {
         
         {/* Floating geometric shapes */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-gray-200/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute top-40 right-20 w-48 h-48 bg-gray-300/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-          <div className="absolute bottom-20 left-20 w-40 h-40 bg-gray-200/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-          <div className="absolute bottom-40 right-10 w-36 h-36 bg-gray-300/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '0.5s'}}></div>
+          <div className="absolute top-10 sm:top-20 left-5 sm:left-10 w-20 sm:w-32 h-20 sm:h-32 bg-gray-200/20 rounded-full blur-2xl sm:blur-3xl animate-pulse"></div>
+          <div className="absolute top-20 sm:top-40 right-5 sm:right-20 w-24 sm:w-48 h-24 sm:h-48 bg-gray-300/20 rounded-full blur-2xl sm:blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+          <div className="absolute bottom-10 sm:bottom-20 left-5 sm:left-20 w-20 sm:w-40 h-20 sm:h-40 bg-gray-200/20 rounded-full blur-2xl sm:blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+          <div className="absolute bottom-20 sm:bottom-40 right-5 sm:right-10 w-16 sm:w-36 h-16 sm:h-36 bg-gray-300/20 rounded-full blur-2xl sm:blur-3xl animate-pulse" style={{animationDelay: '0.5s'}}></div>
         </div>
         
               </section>
 
       {/* About Details Section */}
-      <section className="py-48 bg-gradient-to-br from-stone-50 to-white">
+      <section className="py-24 sm:py-32 md:py-48 bg-gradient-to-br from-stone-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-              <div className="modern-card rounded-3xl h-[28rem] flex items-center justify-center relative overflow-hidden">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+            <div className="order-2 md:order-1">
+              <h2 className="text-2xl sm:text-3xl font-black mb-4 sm:mb-6 text-gray-900">My Journey</h2>
+              <p className="text-gray-700 mb-6 leading-relaxed text-base sm:text-lg font-medium">
+                Born and raised in Mumbai, India. From a young age I was always curious about how things worked and had this constant urge to build something meaningful, something that could leave a real impact. That curiosity eventually led me to study CS. But somewhere along the way I realized it was never just about writing code for me. What really fascinated me was the bigger picture: why products exist, how ideas turn into real solutions, and how technology can actually touch people's lives. The moment that truly changed things for me was when I got the chance to work on taking a product from an idea all the way to development and launch. Watching something go from a rough concept to a real product people could actually use was the kind of high I wanted to spend my life chasing. That realization eventually brought me to the United States to find my path into product management.
+              </p>
+            </div>
+            <div className="order-1 md:order-2">
+              <div className="modern-card rounded-2xl sm:rounded-3xl h-64 sm:h-80 md:h-[28rem] flex items-center justify-center relative overflow-hidden">
                 <img 
                   src="/images/IMG_1278.jpg" 
                   alt="About Me"
@@ -60,37 +66,31 @@ function About() {
                 />
               </div>
             </div>
-            <div>
-              <h2 className="text-3xl font-black mb-6 text-gray-900">My Journey</h2>
-              <p className="text-gray-700 mb-6 leading-relaxed text-lg font-medium">
-                Born and raised in Mumbai, India. From a young age I was always curious about how things worked and had this constant urge to build something meaningful, something that could leave a real impact. That curiosity eventually led me to study CS. But somewhere along the way I realized it was never just about writing code for me. What really fascinated me was the bigger picture: why products exist, how ideas turn into real solutions, and how technology can actually touch people's lives. The moment that truly changed things for me was when I got the chance to work on taking a product from an idea all the way to development and launch. Watching something go from a rough concept to a real product people could actually use was the kind of high I wanted to spend my life chasing. That realization eventually brought me to the United States to find my path into product management.
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
       {/* Education Section */}
-      <section className="py-20 bg-white">
+      <section className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-black mb-6 text-gray-900">Education</h2>
-            <div className="w-24 h-1.5 bg-gray-800 mx-auto rounded-full mb-8"></div>
-            <p className="text-xl text-gray-600 font-medium max-w-3xl mx-auto">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 sm:mb-6 text-gray-900">Education</h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 sm:h-1.5 bg-gray-800 mx-auto rounded-full mb-6 sm:mb-8"></div>
+            <p className="text-lg sm:text-xl text-gray-600 font-medium max-w-3xl mx-auto px-4">
               Academic foundation that fuels my passion for AI and product innovation
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="modern-card p-8 rounded-2xl hover:scale-105 transition-all duration-300">
-              <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center flex-shrink-0">
-                  <GraduationCap className="text-white" size={24} />
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+            <div className="modern-card p-6 sm:p-8 rounded-2xl hover:scale-105 transition-all duration-300">
+              <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-800 rounded-full flex items-center justify-center flex-shrink-0">
+                  <GraduationCap className="text-white" size={20} />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black mb-2 text-gray-900">University of Washington</h3>
-                  <p className="text-gray-600 font-medium mb-2">Master of Science in Information Management</p>
-                  <div className="flex items-center gap-4 text-sm text-gray-500 font-medium">
+                  <h3 className="text-xl sm:text-2xl font-black mb-2 text-gray-900">University of Washington</h3>
+                  <p className="text-gray-600 font-medium mb-2 text-sm sm:text-base">Master of Science in Information Management</p>
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500 font-medium">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
                       2023 - 2025

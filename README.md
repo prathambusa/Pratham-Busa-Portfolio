@@ -6,6 +6,9 @@ Welcome to my personal portfolio! This website showcases my professional journey
 
 Visit my portfolio at: [https://prathambusa.netlify.app](https://prathambusa.netlify.app)
 
+**Demo:** [https://pratham-busa.netlify.app](https://pratham-busa.netlify.app)  
+**Code:** [GitHub Repository](https://github.com/prathambusa/Pratham-Busa-Portfolio)
+
 ## About This Portfolio
 
 This is my personal website featuring:

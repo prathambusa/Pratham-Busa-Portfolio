@@ -194,9 +194,14 @@ function Projects() {
                         <ExternalLink size={16} /> Demo
                       </a>
                     ) : project.title === "Personal Portfolio Website" ? (
-                      <a href="https://github.com/prathambusa/Pratham-Busa-Portfolio" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 flex items-center gap-1 text-sm font-semibold transition-colors">
-                        <Github size={16} /> Code
-                      </a>
+                      <div className="flex gap-3">
+                        <a href="https://pratham-busa.netlify.app/" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 flex items-center gap-1 text-sm font-semibold transition-colors">
+                          <ExternalLink size={16} /> Demo
+                        </a>
+                        <a href="https://github.com/prathambusa/Pratham-Busa-Portfolio" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 flex items-center gap-1 text-sm font-semibold transition-colors">
+                          <Github size={16} /> Code
+                        </a>
+                      </div>
                     ) : project.title === "Spotify Data Analysis" ? (
                       <a href="https://github.com/prathambusa/Spotify-Data-Analysis" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-gray-900 flex items-center gap-1 text-sm font-semibold transition-colors">
                         <Github size={16} /> Code

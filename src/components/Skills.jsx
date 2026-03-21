@@ -122,7 +122,7 @@ function Skills() {
                 {/* Content - Right */}
                 <div className="w-5/12 ml-auto modern-card p-6 rounded-2xl">
                   <div className="text-purple-600 font-semibold mb-2">June 2024 – May 2025</div>
-                  <h3 className="text-2xl font-black text-gray-900 mb-2">Product Data Analyst</h3>
+                  <h3 className="text-2xl font-black text-gray-900 mb-2">Product Analyst</h3>
                   <p className="text-gray-600 font-medium mb-3">King County • Seattle, WA</p>
                   <p className="text-gray-700 leading-relaxed">
                     Financial Analytics & Operations
